@@ -8,6 +8,7 @@ class Board(models.Model):
 
 
 class Task(models.Model):
+	board = models.ForeignKey(Board, on_delete=models.CASCADE)
 	description = models.TextField()
 	creation_date = models.DateField(auto_now_add=True)
 	is_hidden = models.BooleanField()
