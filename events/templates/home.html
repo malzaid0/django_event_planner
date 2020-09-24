@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="masthead text-center text-white">
+  <div class="masthead-content">
+    <div class="container">
+      <h1 class="masthead-heading mb-0">All the events,</h1>
+      <h2 class="masthead-subheading mb-0">You could ever want...</h2>
+      {% if request.user.is_anonymous %}
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-xl border-white rounded-pill mt-5">Sign up to find events!</a>
+      {% else %}
+        <a href="{% url 'event-list' %}" class="btn btn-primary btn-xl border-white rounded-pill mt-5">Find events!</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="bg-circle-1 bg-circle"></div>
+  <div class="bg-circle-2 bg-circle"></div>
+  <div class="bg-circle-3 bg-circle"></div>
+  <div class="bg-circle-4 bg-circle"></div>
+</header>
+{% if sample_event1 %}
+    <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+              <a href="{% url "event-detail" sample_event1.id %}" ><img class="img-fluid rounded-circle" src="{{ sample_event1.img.url }}" alt=""></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+              <a href="{% url "event-detail" sample_event1.id %}" ><h2 class="display-4">{{ sample_event1.title }}</h2></a>
+            <p>{{ sample_event1.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="p-5">
+              <a href="{% url "event-detail" sample_event2.id %}" ><img class="img-fluid rounded-circle" src="{{ sample_event2.img.url }}" alt=""></a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="p-5">
+              <a href="{% url "event-detail" sample_event2.id %}" ><h2 class="display-4">{{ sample_event2.title }}</h2></a>
+            <p>{{ sample_event2.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <section class="pb-5">
+    <div class="container pb-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+          <div class="p-5">
+              <a href="{% url "event-detail" sample_event3.id %}" ><img class="img-fluid rounded-circle" src="{{ sample_event3.img.url }}" alt=""></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <div class="p-5">
+              <a href="{% url "event-detail" sample_event3.id %}" ><h2 class="display-4">{{ sample_event3.title }}</h2></a>
+            <p>{{ sample_event3.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+{% endif %}
+
+
+{% endblock %}

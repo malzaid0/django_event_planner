@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">All events</h1>
+            <h2 class="masthead-subheading mb-0">GET LIT!!</h2>
+        </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+</header>
+
+<div class="container py-5">
+    <form class="form-inline my-3 my-lg-3" action="{% url "event-list" %}">
+        <input class="form-control mr-sm-2" type="text" name='search_term' placeholder="Search for an event">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <div class="row pb-5 my-5">
+        {% for event in events %}
+        <div class="col-md-4 my-4">
+            <div class="innerimg">
+                <img src="{{event.img.url}}" class="card-img-top">
+            </div>
+            <h4 class="my-4">{{event.title}}<small> by <a href="{% url "users-profile" event.organizer.id %}"> {{ event.organizer }}</a></small></h4>
+            <p>{{event.datetime}}</p>
+            <a href="{% url 'event-detail' event.id %}" class="btn btn-outline-dark btn-md">More..</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

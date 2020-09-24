@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<header class="masthead text-center text-white">
+  <div class="masthead-content">
+    <div class="container">
+        <div class="jumbotron">
+            <h2 class="masthead-subheading mb-0">{{ request.user.username }}</h2>
+            <h2 class="masthead-subheading mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+            <h2 class="masthead-subheading mb-0">{{ request.user.email }}</h2>
+            <a href="{% url 'edit-profile' %}" class="btn btn-primary btn-xl rounded-pill mt-5 mx-3">Edit Profile</a>
+            <a href="{% url 'change-password' %}" class="btn btn-danger btn-xl rounded-pill mt-5 mx-3">Change Password</a>
+        </div>
+    </div>
+
+  </div>
+  <div class="bg-circle-1 bg-circle"></div>
+  <div class="bg-circle-2 bg-circle"></div>
+  <div class="bg-circle-3 bg-circle"></div>
+  <div class="bg-circle-4 bg-circle"></div>
+</header>
+{% if request.user.followers.all %}
+    <div class="container my-5 py-5">
+    <h3>Followers</h3>
+    <table class="table table-striped table-dark mb-5 pb-5">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for user in request.user.followers.all %}
+            <tr>
+                <th scope="row"><a href="{% url "users-profile" user.user.id %}"><h3>{{ user.user.username }}</h3></a></th>
+                {% if user.user in following_list %}
+                    <td><a href="{% url 'unfollow-user' user.user.id %}" class="btn btn-danger btn rounded-pill">Unfollow</a></td>
+                {% else %}
+                    <td><a href="{% url 'follow-user' user.user.id %}" class="btn btn-primary btn rounded-pill">Follow</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+  </tbody>
+</table>
+    </div>
+    {% endif %}
+
+{% if request.user.following.all %}
+    <div class="container my-5 py-5">
+    <h3>Following</h3>
+    <table class="table table-striped table-dark mb-5 pb-5">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for user in request.user.following.all %}
+            <tr>
+                <th scope="row"><a href="{% url "users-profile" user.following_user.id %}"><h3>{{ user.following_user.username }}</h3></a></th>
+                <td><a href="{% url 'unfollow-user' user.following_user.id %}" class="btn btn-danger btn rounded-pill">Unfollow</a></td>
+            </tr>
+        {% endfor %}
+  </tbody>
+</table>
+    </div>
+    {% endif %}
+{% endblock %}
